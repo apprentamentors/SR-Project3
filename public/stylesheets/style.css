@@ -1,0 +1,102 @@
+*{
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  font-family: sans-serif;
+}
+header {
+  width: 100%;
+  height: 30%;
+  background-color: #fbfbfbff;
+}
+main {
+  width: 100%;
+  height: 70%;
+  background-color: #ecf0f1ff;
+  padding-top: 5%;
+  padding-left: 2%;
+}
+#logo {
+  color: #2ecc71;
+  font-size: 3.25em;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 2%;
+  margin-top: 1%;
+}
+#login{
+  color: #666666;
+  display: inline-block;
+  float: right;
+  margin-top: 2%;
+  margin-right: 5%;
+}
+
+#login-btn {
+  width: 95px;
+  height: 30px;
+  background-color: #2ecc71;
+  display: inline-block;
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
+#login input {
+  width: 120px;
+  height: 25px;
+  border-radius: 0px;
+  border: 2px solid #666666;
+}
+
+#splash {
+  color: #666666;
+  font-size: 2.2em;
+}
+#earth {
+  margin-top: 2%;
+  margin-left: 7%;
+  display: inline-block;
+}
+
+#register {
+  display: inline;
+  float: right;
+  margin-right: 7%;
+  color: #666666;
+}
+
+
+#register input {
+  width: 250px;
+  height: 45px;
+  font-size: 2em;
+  margin-bottom: 3%;
+  border-radius: 0px;
+  border: 2px solid #666666;
+}
+
+#email{
+  width: 520px !important;
+}
+#password {
+  width: 520px !important;
+}
+
+#checkbox {
+  width: 45px !important;
+  height: 45px !important;
+  padding: 50px !important;
+  background-color: white;
+}
+
+#register-btn {
+  width: 200px;
+  height: 65px;
+  border: none;
+  background-color: #2ecc71;
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-top: 3%;
+}

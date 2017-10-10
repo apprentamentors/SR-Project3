@@ -1,0 +1,23 @@
+doctype html
+html(lang="en")
+head
+  title #{title}
+  meta(charset="utf-8")
+  link(rel="stylesheet" href="/stylesheets/profile.css")
+body
+  div(class="sidebar")
+    div(id="logo") BOX
+    p My files
+    form(id="uploadForm", enctype="multipart/form-data", action="/upload", method="post")
+      input(type="file" name="userFile")
+      input(type="submit" value="Upload file" name="submit")
+
+    a(href="/logout")
+      button Logout
+  main
+    ul
+      li Name
+      li Modified
+      li Members
+      li Size
+    hr

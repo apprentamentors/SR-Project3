@@ -1,0 +1,24 @@
+doctype html
+html(lang="en")
+head
+  title #{title}
+  meta(charset="utf-8")
+  link(rel="stylesheet" href="/stylesheets/style.css")
+body
+  header
+    div(id="logo") BOX
+    if showLogin
+      form(id="login", action="/login", method="post")
+        label Username: 
+        input(type="text", name="username")
+        label Password:
+        input(type="password", name="password")
+        input(id="login-btn", type="submit", value="Log in")
+  main
+    h1(id="splash") Get all your files from anywhere.
+    img(id="earth" src="/images/earth-flat.png")
+    if showRegistration
+      form(id="register", action="/register", method="post")
+        input(id="username", type="text", name="username", placeholder="Username")
+        input(id="password", type="password", name="password", placeholder="Password")
+        input(id="register-btn", type="submit", value="Create Account")
