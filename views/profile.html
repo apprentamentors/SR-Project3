@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/stylesheets/profile.css">
+  <title>Box</title>
+</head>
+<body>
+  <div class="sidebar">
+    <div id="logo">BOX</div>
+    <p>My files</p>
+    <form id="uploadForm"  enctype="multipart/form-data" action="/upload" method="POST">
+      <input id="uploadFile" type="file" name="userFile">
+      <input id="uploadButton" type="submit" value="Upload file" name="submit">
+    </form>
+    <a href="/logout">
+      <button>Logout</button>
+    </a>
+  </div>
+  <main>
+    <ul>
+      <li>Name</li>
+      <li>Owner</li>
+      <li>Size</li>
+    </ul>
+    <hr>
+    <div id="fileInfo">
+    </div>
+  </main>
+  <script>
+  var form = document.getElementById("uploadForm");
+  var uploadFile = document.getElementById("uploadFile");
+  var uploadButton = document.getElementById("uploadButton");
+
+  form.onsubmit = function(event) {
+    event.preventDefault();
+
+    uploadButton.value= "Uploading...";
+
+    var files = uploadFile.files;
+
+    var Data = {
+      "userfile": 1
+    };
+    JSON.stringify(Data);
+    var formData = new FormData();
+    formData.append("userfile", files[0], files[0].name);
+    console.log(formData.get("userfile"));
+
+    var http = new XMLHttpRequest();
+
+    http.open("POST", "/upload", true);
+
+    http.onload = function() {
+      if(http.status == 200) {
+        uploadButton.value = "Upload";
+        console.log(http.responseText);
+      }
+      else {
+        alert("An error occuried");
+      }
+    }
+
+    http.send(Data);
+
+  }
+      function makeRequest(event) {
+
+
+
+
+
+
+      }
+  </script>
+</body>
+</html>

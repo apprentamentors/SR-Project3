@@ -53,6 +53,7 @@ main {
   color: #666666;
   font-size: 2.2em;
 }
+
 #earth {
   margin-top: 2%;
   margin-left: 7%;
@@ -66,9 +67,8 @@ main {
   color: #666666;
 }
 
-
 #register input {
-  width: 250px;
+  width: 500px;
   height: 45px;
   font-size: 2em;
   margin-bottom: 3%;
@@ -76,22 +76,8 @@ main {
   border: 2px solid #666666;
 }
 
-#email{
-  width: 520px !important;
-}
-#password {
-  width: 520px !important;
-}
-
-#checkbox {
-  width: 45px !important;
-  height: 45px !important;
-  padding: 50px !important;
-  background-color: white;
-}
-
 #register-btn {
-  width: 200px;
+  width: 300px !important;
   height: 65px;
   border: none;
   background-color: #2ecc71;

@@ -17,7 +17,14 @@ body
   main
     ul
       li Name
-      li Modified
-      li Members
+      li Owner
       li Size
     hr
+    ul
+      each val, index in fileInformation
+        if(index === "filePath")
+          a(href=val download)
+            button Download
+          hr
+        else
+          li=val
