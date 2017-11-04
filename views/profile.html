@@ -18,60 +18,93 @@
     </a>
   </div>
   <main>
-    <ul>
-      <li>Name</li>
-      <li>Owner</li>
-      <li>Size</li>
+    <ul id="fileOption">
+      <li id="fileNameOption">Name</li>
+      <li class="fileOwner">Owner</li>
+      <li class="fileSize">Size</li>
     </ul>
     <hr>
     <div id="fileInfo">
     </div>
   </main>
   <script>
-  var form = document.getElementById("uploadForm");
-  var uploadFile = document.getElementById("uploadFile");
-  var uploadButton = document.getElementById("uploadButton");
+      window.addEventListener("load", function() {
+        var file = {
+          dom:    document.getElementById("uploadFile"),
+          binary: null
+        };
 
-  form.onsubmit = function(event) {
-    event.preventDefault();
+        var reader = new FileReader();
+        reader.addEventListener("load", function() {
+          file.binary = reader.result;
+        });
 
-    uploadButton.value= "Uploading...";
+        if(file.dom.files[0]) {
+          reader.readAsBinaryString(file.dom.files[0]);
+        }
 
-    var files = uploadFile.files;
+        file.dom.addEventListener("change", function() {
+          if(reader.readyState == FileReader.LOADING){
+            reader.abort();
+          }
 
-    var Data = {
-      "userfile": 1
-    };
-    JSON.stringify(Data);
-    var formData = new FormData();
-    formData.append("userfile", files[0], files[0].name);
-    console.log(formData.get("userfile"));
+          reader.readAsBinaryString(file.dom.files[0]);
+        });
 
-    var http = new XMLHttpRequest();
+        function sendData() {
+          if(!file.binary && file.dom.files.length > 0) {
+            setTimeout(sendData, 10);
+            return;
+          }
 
-    http.open("POST", "/upload", true);
+          var xhr = new XMLHttpRequest();
 
-    http.onload = function() {
-      if(http.status == 200) {
-        uploadButton.value = "Upload";
-        console.log(http.responseText);
-      }
-      else {
-        alert("An error occuried");
-      }
-    }
+          var boundary = "blob";
+          var data = "";
 
-    http.send(Data);
+          if(file.dom.files[0]) {
+            data += "--" + boundary + "\r\n";
 
-  }
-      function makeRequest(event) {
+            data += "content-disposition: form-data; "
+                 + 'name="'  + file.dom.name + '"; '
+                 + 'filename="' + file.dom.files[0].name + '"\r\n';
+            data += "Content-Type: " + file.dom.files[0].type + "\r\n";
+            data += "\r\n";
+            data += file.binary + "\r\n";
 
+          }
+          data += "--" + boundary + "--";
 
+          xhr.addEventListener("load", function(event) {
+            var fileInfo = document.getElementById("fileInfo");
+            var file = JSON.parse(xhr.responseText);
+            var fileName = file.fileName;
+            var userName = file.userName;
+            var fileSize = file.fileSize;
+            var filePath  = file.filePath;
 
+            fileInfo.innerHTML += "<ul>" +
+                                   "<li class='" + "fileName'>" + fileName + "</li>" +
+                                   "<li class='" + "fileOwner'>" + userName + "</li>" +
+                                   "<li class='" + "fileSize'>" + fileSize + "</li>" +
+                                 "</ul>";
+          });
 
+          xhr.addEventListener("error", function(event) {
+            alert("Oops! something went wrong.");
+          });
 
+          xhr.open("POST", "/upload", true);
+          xhr.setRequestHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
+          xhr.send(data);
+        }
+        var form = document.getElementById("uploadForm");
 
-      }
+        form.addEventListener("submit", function(event) {
+          event.preventDefault();
+          sendData();
+        });
+      });
   </script>
 </body>
 </html>

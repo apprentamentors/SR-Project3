@@ -78,23 +78,25 @@ module.exports = function(app, db) {
   );
 
   app.route("/upload")
-    .post(function(req, res, next) {
-      console.log(req.file);
-      console.log(JSON.stringify(req.file));
-      /*if(!req.file) {
+    .post(upload.single("userFile"),function(req, res, next) {
+       console.log(req.file);
+
+    //  console.log(JSON.stringify(req.file));
+      if(!req.file) {
         console.log("No file received");
         return res.send({
           success: false
         });
-      }*/
-      /*else {
+      }
+      else {
         return res.json({
           fileName: req.file.originalname,
           userName: req.user.username,
           fileSize: req.file.size,
           filePath: req.file.path
         });
-      }*/
+      }
+
     });
 
   app.route("/uploads/*")
